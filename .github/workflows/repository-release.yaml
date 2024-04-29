@@ -1,0 +1,53 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      log_level:
+        required: true
+        description: "Terraform Log Level"
+        default: INFO
+        type: choice
+        options:
+          - TRACE
+          - DEBUG
+          - INFO
+          - WARN
+          - ERROR
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  at:
+    name: AT
+    uses: "./.github/workflows/repository-template.yaml"
+    secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: [AT21, AT22, AT23, AT24, AT25]
+    with:
+      environment: ${{ matrix.environment }}
+      log_level: ${{ inputs.log_level == '' && 'INFO' || inputs.log_level }}
+
+  tt02:
+    uses: "./.github/workflows/repository-template.yaml"
+    name: TT02
+    needs: at
+    secrets: inherit
+    with:
+      environment: TT02
+      log_level: ${{ inputs.log_level == '' && 'INFO' || inputs.log_level }}
+
+  prod:
+    uses: "./.github/workflows/repository-template.yaml"
+    name: PROD
+    needs: tt02
+    secrets: inherit
+    with:
+      environment: PROD
+      log_level: ${{ inputs.log_level == '' && 'INFO' || inputs.log_level }}
