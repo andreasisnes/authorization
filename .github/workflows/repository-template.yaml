@@ -22,7 +22,7 @@ jobs:
       - name: Azure login
         uses: azure/login@v2
         with:
-          client-id: ${{ vars.ARM_CLIENT_ID }}
+          client-id: b513c8fe-0943-4eb4-a4f1-e33bd87a12d6
           tenant-id: ${{ vars.ARM_TENANT_ID }}
           subscription-id: ${{ vars.ARM_SUBSCRIPTION_ID }}
 
@@ -39,7 +39,7 @@ jobs:
       - name: Terraform Init State
         working-directory: Infrastructure
         env:
-          ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+          ARM_CLIENT_ID: b513c8fe-0943-4eb4-a4f1-e33bd87a12d6
           ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
           ARM_USE_OIDC: true
@@ -52,7 +52,7 @@ jobs:
       - name: Terraform Apply
         working-directory: Infrastructure
         env:
-          ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+          ARM_CLIENT_ID: b513c8fe-0943-4eb4-a4f1-e33bd87a12d6
           ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
           ARM_USE_OIDC: true

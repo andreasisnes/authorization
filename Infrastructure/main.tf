@@ -17,11 +17,12 @@ provider "azurerm" {
 }
 
 locals {
-  location = "norwayeast"
+  location    = "norwayeast"
+  environment = lower(var.environment)
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-authorization-${var.environment}-${var.instance}"
+  name     = "rg-authorization-${local.environment}-${var.instance}"
   location = local.location
 }
 
