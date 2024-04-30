@@ -22,34 +22,14 @@ jobs:
       - name: Set Terraform state
         uses: andreasisnes/organization-management/actions/terraform-init@main
         with:
-          working_dir: ./Infrastructure
+          working_directory: ./Infrastructure
           environment: ${{ inputs.environment }}
           arm_client_id: ${{ vars.ARM_CLIENT_ID }}
 
-      - name: Azure login
-        uses: azure/login@v2
+      - name: Deploy Terraform
+        uses: andreasisnes/organization-management/actions/terraform-init@main
         with:
-          client-id: ${{ vars.ARM_CLIENT_ID }}
-          tenant-id: ${{ vars.ARM_TENANT_ID }}
-          subscription-id: ${{ vars.ARM_SUBSCRIPTION_ID }}
-
-      - name: Terraform Install
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: ${{ env.TERRAFORM_VERSION }}
-          terraform_wrapper: false
-
-      - name: Terraform Set Logger
-        run: |
-          export TF_LOG="${{ inputs.log_level }}"
-
-      - name: Terraform Apply
-        working-directory: Infrastructure
-        env:
-          ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
-          ARM_USE_OIDC: true
-        run: |
-          terraform apply -auto-approve \
-            -var environment="${{ inputs.environment }}" \
+          working_directory: ./Infrastructure
+          arm_client_id: ${{ vars.ARM_CLIENT_ID }}
+          arm_subscription_id: ${{ vars.ARM_SUBSCRIPTION_ID }}
+          tf_args: -var environment="${{ inputs.environment }}
