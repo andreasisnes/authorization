@@ -19,10 +19,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: kake
+      - name: Set Terraform state
         uses: andreasisnes/organization-management/actions/terraform-init@main
         with:
-          working_dir: Infrastructure
+          working_dir: ./Infrastructure
+          environment: ${{ inputs.environment }}
+          arm_client_id: ${{ vars.ARM_CLIENT_ID }}
 
       - name: Azure login
         uses: azure/login@v2
