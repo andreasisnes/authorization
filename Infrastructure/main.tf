@@ -22,7 +22,7 @@ locals {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-authorization-${local.environment}-${var.instance}"
+  name     = "rg-authorization-${lower(local.environment)}-${var.instance}"
   location = local.location
 }
 
