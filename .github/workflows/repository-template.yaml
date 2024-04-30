@@ -27,7 +27,7 @@ jobs:
           arm_client_id: ${{ vars.ARM_CLIENT_ID }}
 
       - name: Deploy Terraform
-        uses: andreasisnes/organization-management/actions/terraform-init@main
+        uses: andreasisnes/organization-management/actions/terraform-azure-apply@main
         with:
           working_directory: ./Infrastructure
           arm_client_id: ${{ vars.ARM_CLIENT_ID }}
