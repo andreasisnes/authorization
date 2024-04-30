@@ -32,4 +32,4 @@ jobs:
           working_directory: ./Infrastructure
           arm_client_id: ${{ vars.ARM_CLIENT_ID }}
           arm_subscription_id: ${{ vars.ARM_SUBSCRIPTION_ID }}
-          tf_args: -var environment="${{ inputs.environment }}
+          tf_args: -var environment="${{ inputs.environment }}"
