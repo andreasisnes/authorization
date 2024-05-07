@@ -23,8 +23,8 @@ jobs:
         uses: andreasisnes/organization-management/actions/terraform-init@main
         with:
           working_directory: ./Infrastructure
-          environment: ${{ inputs.environment }}
           arm_client_id: ${{ vars.ARM_CLIENT_ID }}
+          environment: ${{ inputs.environment }}
 
       - name: Terraform Apply
         uses: andreasisnes/organization-management/actions/terraform-apply@main
