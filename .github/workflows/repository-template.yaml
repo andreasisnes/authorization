@@ -19,15 +19,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set Terraform state
+      - name: Terraform Initialize
         uses: andreasisnes/organization-management/actions/terraform-init@main
         with:
           working_directory: ./Infrastructure
           environment: ${{ inputs.environment }}
           arm_client_id: ${{ vars.ARM_CLIENT_ID }}
 
-      - name: Deploy Terraform
-        uses: andreasisnes/organization-management/actions/terraform-azure-apply@main
+      - name: Terraform Apply
+        uses: andreasisnes/organization-management/actions/terraform-apply@main
         with:
           working_directory: ./Infrastructure
           arm_client_id: ${{ vars.ARM_CLIENT_ID }}
